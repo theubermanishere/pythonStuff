@@ -53,3 +53,31 @@ class CreditCard:
     def make_payment(self, amount):
         """Process customer payment that reduces balance."""
         self._balance -= amount
+
+    def __str__(self):
+        """Returns a string representation of the card"""
+        return "(" + self._customer + ", " + self._bank + ", " \
+                + str(self._account) + ", " + str(self._balance) + ")"
+
+if __name__ == '__main__':
+    wallet = []
+    wallet.append(CreditCard('Johnny', 'XYZ Bank', '2134543256939602', 10000))
+    wallet.append(CreditCard('Kevin', 'ABC Bank', '8134543256939602', 10000))
+    wallet.append(CreditCard('Jerie', 'IDC Bank', '6134543256939602', 10000))
+
+    for val in range(1, 17):
+        wallet[0].charge(val)
+        wallet[1].charge(2 * val)
+        wallet[2].charge(3 * val)
+
+    for c in range(3):
+        print(wallet[c])
+        print("Customer =\t", wallet[c].get_customer())
+        print("Bank =\t\t", wallet[c].get_bank())
+        print("Account =\t", wallet[c].get_account())
+        print("Limit =\t\t", wallet[c].get_limit())
+        print("Balance =\t", wallet[c].get_balance())
+        while wallet[c].get_balance() > 100:
+            wallet[c].make_payment(100)
+            print("New balance =", wallet[c].get_balance())
+        print()
