@@ -59,6 +59,36 @@ class CreditCard:
         return "(" + self._customer + ", " + self._bank + ", " \
                 + str(self._account) + ", " + str(self._balance) + ")"
 
+class PredatoryCreditCard(CreditCard):
+    """An extension to CreditCard that compounds interest and fees."""
+
+    def __init__(self, customer, bank, acnt, limit, apr):
+        """Create a new predatory credit card instance.
+
+        apr     annual percentage rate
+        """
+
+        super().__init__(customer, bank, acnt, limit)
+        self._apr = apr
+
+    def charge(self, price):
+        """Charge given price to the card
+
+        Return True if success
+        Return False and charge $5 if failed.
+        """
+
+        success = super().charge(price)
+        if not success:
+            self._balance += 5
+        return success
+
+    def process_month(self):
+        """Assess monthly interest on outstanding balance."""
+        if self._balance > 0:
+            monthly_factor = pow(1 + self._apr, 1/12)
+            self._balance *= monthly_factor
+
 if __name__ == '__main__':
     wallet = []
     wallet.append(CreditCard('Johnny', 'XYZ Bank', '2134543256939602', 10000))
