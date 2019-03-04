@@ -36,4 +36,20 @@ class Vector:
 
     def __str__(self):
         """Produce string representation"""
-        return '<' + str(self._coords)[1:-1] + '>' 
+        return '<' + str(self._coords)[1:-1] + '>'
+
+if __name__ == '__main__':
+    n = 3
+    v = Vector(n)
+    for i in range(n):
+        v[i] = i
+
+    w = Vector(n)
+    for i in range(n):
+        w[i] = i * i
+
+    print("Vector v: ", v)
+    print("Vector w: ", w)
+    print("Sum: ", v+w)
+    print("Equality Check: ", v == w)
+
